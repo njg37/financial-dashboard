@@ -17,15 +17,17 @@ export default function TimeFilter({ onChange }: { onChange?: (value: number) =>
   };
 
   return (
-    <div className="flex gap-3 p-4 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+    <div className="flex gap-2 p-4 bg-gray-100 border-b border-gray-200">
       {ranges.map((range) => (
         <button
           key={range.value}
           onClick={() => handleClick(range.value)}
-          className={`px-4 py-2 rounded-md text-sm font-medium transition-colors
-            ${active === range.value
-              ? "bg-blue-600 text-white"
-              : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"}`}
+          className={`px-4 py-1.5 rounded text-sm font-medium border transition-colors
+            ${
+              active === range.value
+                ? "bg-red-600 text-white border-red-600"
+                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+            }`}
         >
           {range.label}
         </button>

@@ -1,39 +1,37 @@
 import Navbar from "./components/Navbar";
-import TimeFilter from "./components/TimeFilter";
 import AumCard from "./components/AumCard";
 import SipCard from "./components/SipCard";
-import StatCard from "./components/StatCard";
+import StatsSection from "./components/StatsSection";
 import BubbleChart from "./components/BubbleChart";
 import BarLineChart from "./components/BarLineChart";
 import MultiLineChart from "./components/MultiLineChart";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+    <main className="min-h-screen bg-gray-100 text-gray-900">
       {/* Top Navbar */}
       <Navbar />
 
-      {/* Time Range Filter */}
-      <TimeFilter />
-
       {/* Main Cards Section */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-        <AumCard />
-        <SipCard />
+      <section className="bg-gray-100 p-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <AumCard />
+          <SipCard />
+        </div>
       </section>
 
-      {/* Stats Section */}
-      <StatCard />
+      {/* Stats Section - now wrapped with same padding */}
+      <section className="bg-gray-100 p-4">
+        <StatsSection />
+      </section>
 
       {/* Charts Section */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-        <BubbleChart />
-        <BarLineChart />
-      </section>
-
-      {/* Full Width Chart */}
-      <section className="p-4">
-        <MultiLineChart />
+      <section className="bg-gray-100 p-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <BubbleChart />
+          <BarLineChart />
+          <MultiLineChart />
+        </div>
       </section>
     </main>
   );

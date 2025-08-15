@@ -1,34 +1,49 @@
 "use client";
-import { useEffect, useState } from "react";
-import { fetchData } from "../utils/fetchData";
+import { ReactNode } from "react";
 
-interface StatItem {
-  title: string;
+interface StatCardProps {
+  icon: ReactNode;
+  label: string;
   value: number;
+  amount: string;
+  showReport?: boolean;
 }
 
-export default function StatCard() {
-  const [stats, setStats] = useState<StatItem[]>([]);
-
-  useEffect(() => {
-    fetchData<StatItem[]>("/api/stats").then((data) => {
-      if (data) setStats(data);
-    });
-  }, []);
-
+export default function StatCard({
+  icon,
+  label,
+  value,
+  amount,
+  showReport,
+}: StatCardProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 p-4">
-      {stats.length > 0
-        ? stats.map((stat) => (
-            <div
-              key={stat.title}
-              className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-4 flex flex-col items-center justify-center gap-1"
-            >
-              <p className="text-sm text-gray-600 dark:text-gray-400">{stat.title}</p>
-              <p className="text-lg font-bold">{stat.value}</p>
-            </div>
-          ))
-        : <p className="col-span-full text-center">Loading...</p>}
+    <div className="w-full relative flex items-center px-4 py-4 h-[110px]">
+      {/* View Report at top right */}
+      {showReport && (
+        <button className="absolute top-2 right-3 text-xs text-red-500 border border-red-400 rounded px-2 py-0.5 hover:bg-red-50">
+          View Report
+        </button>
+      )}
+
+      {/* Icon */}
+      <div className="flex-shrink-0 text-red-500 flex items-center justify-center w-10 h-10">
+        {icon}
+      </div>
+
+      {/* Texts */}
+      <div className="flex flex-col justify-center flex-1 pl-3">
+        {/* Label */}
+        <span className="text-sm text-gray-600 font-medium">{label}</span>
+
+        {/* Value */}
+        <span className="text-lg font-semibold text-gray-800">{value}</span>
+
+        {/* Divider */}
+        <div className="border-t border-gray-200 my-1"></div>
+
+        {/* Amount */}
+        <span className="text-sm text-gray-500">{amount}</span>
+      </div>
     </div>
   );
 }

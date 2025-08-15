@@ -1,31 +1,59 @@
 "use client";
-import { Home, Briefcase, Shield, Wallet, BarChart2, FileText, ShoppingCart, Map, PieChart, LineChart, MoreHorizontal } from "lucide-react";
 
 const menuItems = [
-  { name: "CRM", icon: Home },
-  { name: "Utilities", icon: Briefcase },
-  { name: "Insurance", icon: Shield },
-  { name: "Assets", icon: Wallet },
-  { name: "Mutual", icon: BarChart2 },
-  { name: "Research", icon: FileText },
-  { name: "Transact Online", icon: ShoppingCart },
-  { name: "Goal GPS", icon: Map },
-  { name: "Financial Planning", icon: PieChart },
-  { name: "Wealth Report", icon: LineChart },
-  { name: "Other", icon: MoreHorizontal },
+  "Home",
+  "CRM",
+  "Utilities",
+  "Insurance *",
+  "Assets *",
+  "Mutual",
+  "Research",
+  "Transact Online",
+  "Goal GPS",
+  "Financial Planning",
+  "Wealth Report",
+  "Other *",
 ];
 
 export default function Navbar() {
   return (
-    <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-3 shadow-sm">
-      <ul className="flex flex-wrap items-center gap-6">
-        {menuItems.map((item) => (
+    <nav
+      style={{
+        backgroundColor: "#e50000", // Bright red from screenshot
+        height: "42px", // Matches screenshot height
+        padding: "0",
+        margin: "0",
+      }}
+    >
+      <ul
+        style={{
+          display: "flex",
+          justifyContent: "space-between", // Fill full width evenly
+          alignItems: "center",
+          height: "100%",
+          padding: "0 20px", // Left-right padding
+          margin: 0,
+          listStyle: "none",
+        }}
+      >
+        {menuItems.map((name) => (
           <li
-            key={item.name}
-            className="flex items-center gap-2 text-gray-700 dark:text-gray-300 cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            key={name}
+            style={{
+              fontSize: "12px", // Matching font size
+              fontWeight: 700, // Bold like screenshot
+              color: "#fff",
+              textTransform: "uppercase",
+              letterSpacing: "0.5px",
+              height: "100%",
+              display: "flex",
+              alignItems: "center", // Vertical centering
+              padding: "0 8px",
+              cursor: "pointer",
+            }}
+            className="hover:opacity-80 transition-opacity"
           >
-            <item.icon size={18} />
-            <span className="text-sm font-medium">{item.name}</span>
+            {name}
           </li>
         ))}
       </ul>
