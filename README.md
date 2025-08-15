@@ -62,11 +62,6 @@ yarn install
 npm run dev
 Then open http://localhost:3000 in your browser.
 ```
-## 🧪 Building for Production
-```bash
-npm run build
-npm start
-```
 
 ## Acknowledgements
 
