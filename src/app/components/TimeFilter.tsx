@@ -13,20 +13,20 @@ export default function TimeFilter({ onChange }: { onChange?: (value: number) =>
 
   const handleClick = (value: number) => {
     setActive(value);
-    if (onChange) onChange(value); // Trigger callback to refetch data
+    if (onChange) onChange(value);
   };
 
   return (
-    <div className="flex gap-2 p-4 bg-gray-100 border-b border-gray-200">
+    <div className="flex gap-2 flex-wrap">
       {ranges.map((range) => (
         <button
           key={range.value}
           onClick={() => handleClick(range.value)}
-          className={`px-4 py-1.5 rounded text-sm font-medium border transition-colors
+          className={`px-3 py-1 text-sm font-medium rounded border transition-colors
             ${
               active === range.value
-                ? "bg-red-600 text-white border-red-600"
-                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                ? "bg-red-500 text-white border-red-500"
+                : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
             }`}
         >
           {range.label}
