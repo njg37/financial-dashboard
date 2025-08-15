@@ -1,7 +1,9 @@
 "use client";
+
 import { useEffect, useMemo, useState } from "react";
 import { fetchData } from "../utils/fetchData";
 
+// Interfaces
 interface ClientData {
   name: string;
   size: number;
@@ -16,23 +18,29 @@ interface BubbleItem extends ClientData {
   z: number;
 }
 
+// Color palette
 const COLORS = ["#f97316", "#16a34a", "#dc2626", "#b91c1c"];
 
 export default function BubbleChart() {
   const [raw, setRaw] = useState<ClientData[]>([]);
 
+  // Fetch data on mount
   useEffect(() => {
     fetchData<{ clientsBubble: ClientData[] }>("/api/charts").then((d) => {
       if (!d) return;
       const base = d.clientsBubble.slice(0, 4);
+
+      // Pad to ensure exactly 4 bubbles
       while (base.length < 4) {
         base.push({ name: `Client ${base.length + 1}`, size: 250 });
       }
+
       setRaw(base);
     });
   }, []);
 
-  const bubbles = useMemo(() => {
+  // Processed bubble chart data
+  const bubbles = useMemo<BubbleItem[]>(() => {
     if (!raw.length) return [];
 
     const LAYOUT = [
@@ -153,6 +161,7 @@ export default function BubbleChart() {
   );
 }
 
+// Reusable legend item
 function LegendItem({ color, label }: { color: string; label: string }) {
   return (
     <div className="flex items-center space-x-2 text-sm font-medium text-gray-700 dark:text-gray-300">

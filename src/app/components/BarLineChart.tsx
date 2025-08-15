@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { fetchData } from "../utils/fetchData";
 import {
@@ -13,6 +14,7 @@ import {
   CartesianGrid,
 } from "recharts";
 
+// Define the structure of your SIP data
 interface SipBusinessData {
   month: string;
   bar1: number;
@@ -28,8 +30,20 @@ export default function SipBusinessChart() {
     });
   }, []);
 
-  const RoundedBar = (props: any) => {
-    const { x, y, width, height, fill } = props;
+  // Fixed RoundedBar with type-safe props
+  const RoundedBar = ({
+    x,
+    y,
+    width,
+    height,
+    fill,
+  }: {
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
+    fill?: string;
+  }) => {
     const radius = 6;
     return (
       <svg x={x} y={y} width={width} height={height} fill="none">
