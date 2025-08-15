@@ -46,8 +46,28 @@ export default function StatsSection() {
 
   return (
     <div className="bg-white dark:bg-gray-900 rounded-md shadow-sm border border-gray-200 dark:border-gray-700 px-4">
-      {/* Top Bar */}
-      <div className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700 flex-wrap gap-2">
+      {/* --- Top Bar --- */}
+
+      {/* ✅ Mobile layout */}
+      <div className="flex flex-col gap-2 py-2 border-b border-gray-200 dark:border-gray-700 md:hidden">
+        <div className="flex justify-between items-start">
+          <div></div>
+          <div className="flex gap-2">
+            <button className="text-xs text-red-500 dark:text-red-400 border border-red-400 dark:border-red-600 rounded px-2 py-0.5 hover:bg-red-50 dark:hover:bg-red-900 transition-colors">
+              View Report
+            </button>
+            <button className="text-xs text-red-500 dark:text-red-400 border border-red-400 dark:border-red-600 rounded px-2 py-0.5 hover:bg-red-50 dark:hover:bg-red-900 transition-colors">
+              View Report
+            </button>
+          </div>
+        </div>
+        <div className="pl-0">
+          <TimeFilter onChange={(value) => setSelectedRange(value)} />
+        </div>
+      </div>
+
+      {/* ✅ Tablet/Desktop layout */}
+      <div className="hidden md:flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700 flex-wrap gap-2">
         <TimeFilter onChange={(value) => setSelectedRange(value)} />
         <div className="flex gap-2 flex-wrap">
           <button className="text-xs text-red-500 dark:text-red-400 border border-red-400 dark:border-red-600 rounded px-2 py-0.5 hover:bg-red-50 dark:hover:bg-red-900 transition-colors">
@@ -59,58 +79,46 @@ export default function StatsSection() {
         </div>
       </div>
 
-      {/* Stats Cards Row */}
-      <div className="overflow-x-auto">
-        <div className="flex w-full min-w-[600px] divide-x divide-gray-200 dark:divide-gray-700">
-          {loading && !stats ? (
-            <div className="p-4">Loading stats...</div>
-          ) : stats ? (
-            <>
-              <div className="flex-1">
-                <StatCard
-                  icon={<ShoppingCart size={20} />}
-                  label="Purchases"
-                  value={stats.purchases}
-                  amount={stats.purchasesAmount}
-                />
-              </div>
-              <div className="flex-1">
-                <StatCard
-                  icon={<Package size={20} />}
-                  label="Redemptions"
-                  value={stats.redemptions}
-                  amount={stats.redemptionsAmount}
-                />
-              </div>
-              <div className="flex-1">
-                <StatCard
-                  icon={<XCircle size={20} />}
-                  label="Rej. Transactions"
-                  value={stats.rejTransactions}
-                  amount={stats.rejTransactionsAmount}
-                />
-              </div>
-              <div className="flex-1">
-                <StatCard
-                  icon={<HandCoins size={20} />}
-                  label="SIP Rejections"
-                  value={stats.sipRejections}
-                  amount={stats.sipRejectionsAmount}
-                />
-              </div>
-              <div className="flex-1">
-                <StatCard
-                  icon={<LineChart size={20} />}
-                  label="New SIP"
-                  value={stats.newSip}
-                  amount={stats.newSipAmount}
-                />
-              </div>
-            </>
-          ) : (
-            <div className="p-4">No stats data available.</div>
-          )}
-        </div>
+      {/* --- Stats Cards Grid --- */}
+      <div className="py-4">
+        {loading && !stats ? (
+          <div className="p-4">Loading stats...</div>
+        ) : stats ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <StatCard
+              icon={<ShoppingCart size={20} />}
+              label="Purchases"
+              value={stats.purchases}
+              amount={stats.purchasesAmount}
+            />
+            <StatCard
+              icon={<Package size={20} />}
+              label="Redemptions"
+              value={stats.redemptions}
+              amount={stats.redemptionsAmount}
+            />
+            <StatCard
+              icon={<XCircle size={20} />}
+              label="Rej. Transactions"
+              value={stats.rejTransactions}
+              amount={stats.rejTransactionsAmount}
+            />
+            <StatCard
+              icon={<HandCoins size={20} />}
+              label="SIP Rejections"
+              value={stats.sipRejections}
+              amount={stats.sipRejectionsAmount}
+            />
+            <StatCard
+              icon={<LineChart size={20} />}
+              label="New SIP"
+              value={stats.newSip}
+              amount={stats.newSipAmount}
+            />
+          </div>
+        ) : (
+          <div className="p-4">No stats data available.</div>
+        )}
       </div>
     </div>
   );
