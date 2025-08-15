@@ -47,7 +47,7 @@ A responsive and modern financial dashboard built with **Next.js 14 App Router**
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/financial-dashboard.git
+git clone https://github.com/njg37/financial-dashboard.git
 cd financial-dashboard
 
 # Install dependencies
