@@ -47,11 +47,13 @@ export default function SipBusinessChart() {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-md p-5 shadow-sm">
-      {/* Title + View Report button row */}
+    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md p-5 shadow-sm">
+      {/* Title + View Report */}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-base font-semibold text-gray-700">SIP BUSINESS CHART</h2>
-        <button className="text-xs text-red-600 border border-red-500 px-2 py-1 rounded hover:bg-red-50">
+        <h2 className="text-base font-semibold text-gray-700 dark:text-gray-200">
+          SIP BUSINESS CHART
+        </h2>
+        <button className="text-xs text-red-600 dark:text-red-400 border border-red-500 dark:border-red-400 px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-900">
           View Report
         </button>
       </div>
@@ -63,6 +65,7 @@ export default function SipBusinessChart() {
           barCategoryGap="20%"
           barGap={0}
         >
+          {/* Drop Shadow Filter */}
           <defs>
             <filter id="lineShadow" x="-20%" y="-20%" width="140%" height="140%">
               <feDropShadow
@@ -75,7 +78,14 @@ export default function SipBusinessChart() {
             </filter>
           </defs>
 
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          {/* Grid */}
+          <CartesianGrid
+            strokeDasharray="3 3"
+            stroke="#e5e7eb"
+            className="dark:stroke-gray-700"
+          />
+
+          {/* X Axis */}
           <XAxis
             dataKey="month"
             tick={{ fill: "#374151", fontSize: 12 }}
@@ -84,20 +94,38 @@ export default function SipBusinessChart() {
             padding={{ left: 0, right: 0 }}
             interval={0}
           />
+
+          {/* Y Axis */}
           <YAxis
             tick={{ fill: "#374151", fontSize: 12 }}
             axisLine={{ stroke: "#d1d5db" }}
             tickLine={false}
           />
+
+          {/* Tooltip */}
           <Tooltip
             contentStyle={{
               backgroundColor: "#fff",
               border: "1px solid #e5e7eb",
               fontSize: "12px",
+              color: "#111827",
             }}
+            wrapperStyle={{
+              backgroundColor: "var(--tw-bg-white)",
+              color: "var(--tw-text-gray-900)",
+            }}
+            labelStyle={{ color: "#4b5563" }}
           />
-          <Legend wrapperStyle={{ fontSize: "12px" }} />
 
+          {/* Legend */}
+          <Legend
+            wrapperStyle={{ fontSize: "12px", color: "#374151" }}
+            formatter={(value: string) => (
+              <span className="text-gray-700 dark:text-gray-200">{value}</span>
+            )}
+          />
+
+          {/* Bars & Lines */}
           <Bar
             dataKey="bar1"
             barSize={20}

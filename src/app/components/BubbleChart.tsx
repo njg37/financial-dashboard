@@ -61,23 +61,25 @@ export default function BubbleChart() {
       z: 0,
     }));
 
-    const sorted = [...bubbleData].sort((a, b) => b.px - a.px); // biggest first
+    const sorted = [...bubbleData].sort((a, b) => b.px - a.px);
     sorted.forEach((b, i) => {
       b.z = i + 1;
-      b.opacity = i === 0 ? 0.4 : 0.8; // biggest bubble more transparent
+      b.opacity = i === 0 ? 0.4 : 0.8;
     });
 
     return sorted;
   }, [raw]);
 
   return (
-    <div className="bg-white border border-gray-200 rounded-md shadow-sm p-5 relative">
+    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md shadow-sm p-5 relative">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-sm font-semibold text-gray-900 uppercase">Clients</h2>
+        <h2 className="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase">
+          Clients
+        </h2>
         <button
           type="button"
-          className="flex items-center space-x-1 text-red-600 border border-red-600 rounded px-3 py-1 text-xs hover:bg-red-50 transition"
+          className="flex items-center space-x-1 text-red-600 dark:text-red-400 border border-red-600 dark:border-red-500 rounded px-3 py-1 text-xs hover:bg-red-50 dark:hover:bg-red-900 transition"
         >
           <svg
             className="w-4 h-4"
@@ -98,7 +100,6 @@ export default function BubbleChart() {
 
       {/* Bubble Chart */}
       <div className="relative w-full h-[300px]">
-        {/* Bubbles */}
         {bubbles.map((b, i) => (
           <div
             key={`bubble-${i}`}
@@ -120,7 +121,7 @@ export default function BubbleChart() {
           />
         ))}
 
-        {/* Labels (on top of everything) */}
+        {/* Labels */}
         {bubbles.map((b, i) => (
           <div
             key={`label-${i}`}
@@ -154,7 +155,7 @@ export default function BubbleChart() {
 
 function LegendItem({ color, label }: { color: string; label: string }) {
   return (
-    <div className="flex items-center space-x-2 text-sm font-medium text-gray-700">
+    <div className="flex items-center space-x-2 text-sm font-medium text-gray-700 dark:text-gray-300">
       <span
         className="inline-block rounded-full"
         style={{ backgroundColor: color, width: 16, height: 16 }}

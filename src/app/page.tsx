@@ -8,25 +8,21 @@ import MultiLineChart from "./components/MultiLineChart";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gray-100 text-gray-900">
-      {/* Top Navbar */}
+    <main className="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
       <Navbar />
 
-      {/* Main Cards Section */}
-      <section className="bg-gray-100 p-4">
+      <section className="bg-gray-100 p-4 dark:bg-gray-800">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <AumCard />
           <SipCard />
         </div>
       </section>
 
-      {/* Stats Section - now wrapped with same padding */}
-      <section className="bg-gray-100 p-4">
+      <section className="bg-gray-100 p-4 dark:bg-gray-800">
         <StatsSection />
       </section>
 
-      {/* Charts Section */}
-      <section className="bg-gray-100 p-4">
+      <section className="bg-gray-100 p-4 dark:bg-gray-800">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           <BubbleChart />
           <BarLineChart />

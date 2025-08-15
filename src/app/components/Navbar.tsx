@@ -1,5 +1,7 @@
 "use client";
 
+import DarkModeToggle from "./DarkModeToggle";
+
 const menuItems = [
   "Home",
   "CRM",
@@ -17,45 +19,21 @@ const menuItems = [
 
 export default function Navbar() {
   return (
-    <nav
-      style={{
-        backgroundColor: "#e50000", // Bright red from screenshot
-        height: "42px", // Matches screenshot height
-        padding: "0",
-        margin: "0",
-      }}
-    >
-      <ul
-        style={{
-          display: "flex",
-          justifyContent: "space-between", // Fill full width evenly
-          alignItems: "center",
-          height: "100%",
-          padding: "0 20px", // Left-right padding
-          margin: 0,
-          listStyle: "none",
-        }}
-      >
-        {menuItems.map((name) => (
-          <li
-            key={name}
-            style={{
-              fontSize: "12px", // Matching font size
-              fontWeight: 700, // Bold like screenshot
-              color: "#fff",
-              textTransform: "uppercase",
-              letterSpacing: "0.5px",
-              height: "100%",
-              display: "flex",
-              alignItems: "center", // Vertical centering
-              padding: "0 8px",
-              cursor: "pointer",
-            }}
-            className="hover:opacity-80 transition-opacity"
-          >
-            {name}
-          </li>
-        ))}
+    <nav className="navbar">
+      <ul className="navbar-list">
+        {/* Left menu */}
+        <div className="navbar-menu">
+          {menuItems.map((name) => (
+            <li key={name} className="navbar-item">
+              {name}
+            </li>
+          ))}
+        </div>
+
+        {/* Dark mode toggle */}
+        <div>
+          <DarkModeToggle />
+        </div>
       </ul>
     </nav>
   );

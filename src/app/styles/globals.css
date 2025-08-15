@@ -2,92 +2,107 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== PDF Theme Colors ===== */
+/* Light mode variables */
 :root {
-  --primary-red: #e31e24; /* Navbar, buttons */
-  --primary-green: #1a9b3f; /* Positive values */
-  --primary-gray: #f5f6fa; /* Section background */
-  --border-gray: #e0e0e0; /* Card borders */
-  --text-dark: #333333; /* Main headings */
-  --text-gray: #666666; /* Secondary text */
+  --primary-red: #e31e24;
+  --primary-green: #1a9b3f;
+  --primary-gray: #f5f6fa;
+  --border-gray: #e0e0e0;
+  --text-dark: #333333;
+  --text-gray: #666666;
 }
 
-/* ===== Body & Default Background ===== */
 body {
   background-color: var(--primary-gray);
-  font-family: 'Poppins', sans-serif;
   color: var(--text-dark);
+  font-family: "Poppins", sans-serif;
   margin: 0;
 }
 
-/* ===== Card Styles ===== */
+/* Dark mode overrides */
+.dark body {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+/* You can add more dark mode specific styles below */
+.dark .card {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
+
+.dark .btn-primary {
+  background-color: #b00020;
+}
+
+.dark .btn-primary:hover {
+  background-color: #800018;
+}
+
+
+/* Navbar base style */
+.navbar {
+  background-color: #e50000;
+  height: 42px;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0;
+  list-style: none;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 12px;
+}
+
+.navbar-item {
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.navbar-item:hover {
+  opacity: 0.8;
+}
+
+/* Dark mode Navbar */
+.dark .navbar {
+  background-color: #8b0000; /* Darker red but softer */
+}
+
+.dark .navbar-item {
+  color: #f5f5f5; /* Off-white */
+}
+
+/* Card base style */
 .card {
-  background-color: #ffffff;
+  background-color: #fff;
   border: 1px solid var(--border-gray);
   border-radius: 6px;
   padding: 20px;
-  box-shadow: none; /* PDF has no drop shadow */
+  box-shadow: none;
+  color: #333;
 }
 
-/* ===== Button Styles ===== */
-.btn-primary {
-  background-color: var(--primary-red);
-  color: white;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 6px 14px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-}
-.btn-primary:hover {
-  background-color: #c51a1f;
-}
-
-.btn-filter {
-  background-color: #ffffff;
-  border: 1px solid var(--border-gray);
-  font-size: 13px;
-  padding: 6px 14px;
-  border-radius: 4px;
-  font-weight: 500;
-  color: var(--text-dark);
-}
-.btn-filter.active {
-  background-color: var(--primary-red);
-  color: white;
-  border-color: var(--primary-red);
-}
-
-/* ===== Section Title ===== */
-.section-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-dark);
-  margin-bottom: 10px;
-}
-
-/* ===== Chart Container ===== */
-.chart-container {
-  background-color: #ffffff;
-  border: 1px solid var(--border-gray);
-  border-radius: 6px;
-  padding: 20px;
-}
-
-/* ===== Stat Card ===== */
-.stat-card {
-  background-color: #ffffff;
-  border: 1px solid var(--border-gray);
-  border-radius: 6px;
-  padding: 15px;
-  text-align: center;
-}
-.stat-title {
-  font-size: 13px;
-  color: var(--text-gray);
-}
-.stat-value {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--text-dark);
+/* Card dark mode */
+.dark .card {
+  background-color: #1a1a1a; /* Very dark gray */
+  border-color: #333;
+  color: #eee; /* Light text */
 }

@@ -10,8 +10,6 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  LinearGradient,
-  defs,
 } from "recharts";
 
 interface MISData {
@@ -31,10 +29,12 @@ export default function MultiLineChart() {
   }, []);
 
   return (
-    <div className="bg-white border border-gray-200 rounded-md p-5 shadow-sm">
+    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md p-5 shadow-sm">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-base font-semibold text-gray-700">Monthly MIS</h2>
-        <button className="text-sm text-red-600 border border-red-200 hover:bg-red-50 px-3 py-1 rounded">
+        <h2 className="text-base font-semibold text-gray-700 dark:text-gray-200">
+          Monthly MIS
+        </h2>
+        <button className="text-sm text-red-600 dark:text-red-400 border border-red-200 dark:border-red-500 hover:bg-red-50 dark:hover:bg-red-900 px-3 py-1 rounded">
           View Report
         </button>
       </div>
@@ -59,7 +59,7 @@ export default function MultiLineChart() {
             </linearGradient>
           </defs>
 
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:stroke-gray-700" />
           <XAxis
             dataKey="month"
             tick={{ fill: "#374151", fontSize: 12, fontWeight: 500 }}
@@ -75,18 +75,27 @@ export default function MultiLineChart() {
           <Tooltip
             contentStyle={{
               backgroundColor: "#fff",
+              color: "#111827",
               border: "1px solid #e5e7eb",
               fontSize: "12px",
               borderRadius: 8,
               boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
             }}
+            labelStyle={{ color: "#4b5563" }}
             cursor={{ stroke: "#9ca3af", strokeWidth: 1 }}
           />
           <Legend
-            wrapperStyle={{ fontSize: "12px", fontWeight: 600 }}
+            wrapperStyle={{
+              fontSize: "12px",
+              fontWeight: 600,
+              color: "#4b5563",
+            }}
             iconSize={14}
             verticalAlign="top"
             height={36}
+            formatter={(value: string) => (
+              <span className="text-gray-700 dark:text-gray-300">{value}</span>
+            )}
           />
 
           <Area
