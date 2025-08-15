@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 /* Light mode variables */
 :root {
   --primary-red: #e31e24;
@@ -16,7 +30,6 @@ body {
   background-color: var(--primary-gray);
   color: var(--text-dark);
   font-family: "Poppins", sans-serif;
-  margin: 0;
 }
 
 /* Dark mode overrides */
@@ -25,7 +38,6 @@ body {
   color: #e0e0e0;
 }
 
-/* You can add more dark mode specific styles below */
 .dark .card {
   background-color: #1e1e1e;
   border-color: #333;
@@ -39,30 +51,44 @@ body {
   background-color: #800018;
 }
 
-
 /* Navbar base style */
 .navbar {
   background-color: #e50000;
   height: 42px;
-  padding: 0;
   margin: 0;
-}
-
-.navbar-list {
+  padding: 0 12px;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 100%;
-  padding: 0 20px;
-  margin: 0;
-  list-style: none;
+  justify-content: space-between;
+  position: relative;
+  box-sizing: border-box;
+  z-index: 1000;
 }
 
+/* Navbar menu container */
 .navbar-menu {
   display: flex;
   gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
+/* Desktop menu */
+.navbar-menu.desktop {
+  display: flex;
+  flex-grow: 1; /* take available space to push toggle right */
+  gap: 12px;
+  overflow-x: auto; /* allow horizontal scroll */
+  scrollbar-width: none; /* Firefox scrollbar hidden */
+}
+
+.navbar-menu.desktop::-webkit-scrollbar {
+  display: none; /* Webkit scrollbar hidden */
+}
+
+/* Navbar items */
 .navbar-item {
   font-size: 12px;
   font-weight: 700;
@@ -75,34 +101,86 @@ body {
   padding: 0 8px;
   cursor: pointer;
   transition: opacity 0.2s ease;
+  white-space: nowrap;
 }
 
 .navbar-item:hover {
   opacity: 0.8;
 }
 
+/* Hamburger menu button */
+.menu-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 22px;
+  padding: 6px;
+  display: none; /* hidden on desktop */
+}
+
 /* Dark mode Navbar */
 .dark .navbar {
-  background-color: #8b0000; /* Darker red but softer */
+  background-color: #8b0000;
 }
 
 .dark .navbar-item {
-  color: #f5f5f5; /* Off-white */
+  color: #f5f5f5;
 }
 
-/* Card base style */
-.card {
-  background-color: #fff;
-  border: 1px solid var(--border-gray);
-  border-radius: 6px;
-  padding: 20px;
-  box-shadow: none;
-  color: #333;
+/* Dark mode toggle container */
+.dark-mode-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
-/* Card dark mode */
-.dark .card {
-  background-color: #1a1a1a; /* Very dark gray */
-  border-color: #333;
-  color: #eee; /* Light text */
+/* Responsive styles */
+@media (max-width: 1023px) {
+  /* Show hamburger on tablet and below */
+  .menu-button {
+    display: block;
+  }
+
+  /* Hide desktop menu on tablet/mobile */
+  .navbar-menu.desktop {
+    display: none;
+  }
+
+  /* Mobile menu dropdown hidden by default */
+  .navbar-menu.mobile {
+    display: none;
+    position: absolute;
+    top: 42px;
+    left: 0;
+    right: 0;
+    background-color: #e50000;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    z-index: 9999;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+
+  /* Show mobile menu when active */
+  .navbar-menu.mobile.active {
+    display: flex;
+  }
+
+  /* Mobile menu items styling */
+  .navbar-menu.mobile .navbar-item {
+    padding: 10px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Ensure dark mode toggle stays right */
+  .dark-mode-toggle {
+    margin-left: auto;
+  }
 }

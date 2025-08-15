@@ -9,21 +9,25 @@ import MultiLineChart from "./components/MultiLineChart";
 export default function Home() {
   return (
     <main className="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+      {/* Navbar */}
       <Navbar />
 
-      <section className="bg-gray-100 p-4 dark:bg-gray-800">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* AUM & SIP Cards */}
+      <section className="py-4 px-2 sm:px-4 bg-gray-100 dark:bg-gray-800">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <AumCard />
           <SipCard />
         </div>
       </section>
 
-      <section className="bg-gray-100 p-4 dark:bg-gray-800">
+      {/* Stats Section */}
+      <section className="py-4 px-2 sm:px-4 bg-gray-100 dark:bg-gray-800">
         <StatsSection />
       </section>
 
-      <section className="bg-gray-100 p-4 dark:bg-gray-800">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      {/* Charts Section */}
+      <section className="py-4 px-2 sm:px-4 bg-gray-100 dark:bg-gray-800">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           <BubbleChart />
           <BarLineChart />
           <MultiLineChart />
