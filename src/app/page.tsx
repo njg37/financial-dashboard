@@ -1,3 +1,4 @@
+import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import AumCard from "./components/AumCard";
 import SipCard from "./components/SipCard";
@@ -9,6 +10,9 @@ import MultiLineChart from "./components/MultiLineChart";
 export default function Home() {
   return (
     <main className="min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+      {/* Header */}
+      <Header />
+
       {/* Navbar */}
       <Navbar />
 
