@@ -205,3 +205,16 @@ body {
   color: #e50000;
 }
 
+
+
+
+
+/* Ensure button text stays centered (screen + PDF) */
+/* button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: normal !important; 
+  vertical-align: middle !important;
+} */
+

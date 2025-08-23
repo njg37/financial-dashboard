@@ -15,10 +15,15 @@ import {
   Wallet,
   LogOut,
   Menu,
+  Download,
 } from "lucide-react";
 import { useState } from "react";
 
-export default function Header() {
+interface HeaderProps {
+  onDownloadPDF: () => void;
+}
+
+export default function Header({ onDownloadPDF }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -45,7 +50,7 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Right: Icons or Mobile Menu Button */}
+          {/* Right: Icons + Buttons */}
           <div className="flex items-center gap-4 text-gray-700 dark:text-gray-200">
             {/* Desktop Icons */}
             <div className="hidden lg:flex items-center gap-4">
@@ -61,13 +66,24 @@ export default function Header() {
               <Shield className="icon" />
               <FileText className="icon" />
               <Wallet className="icon" />
-              <button className="flex items-center gap-1 font-medium hover:text-red-600 transition">
+
+              {/* Download PDF Button */}
+              <button
+                onClick={onDownloadPDF}
+                className="flex items-center justify-center gap-1 px-3 py-1 rounded-md font-medium transition hover:text-blue-600"
+              >
+                <Download className="h-4 w-4" />
+                <span className="leading-none">PDF</span>
+              </button>
+
+              {/* Logout Button */}
+              <button className="flex items-center justify-center gap-1 px-3 py-1 rounded-md font-medium transition hover:text-red-600">
                 <LogOut className="h-4 w-4" />
-                LOGOUT
+                <span className="leading-none">LOGOUT</span>
               </button>
             </div>
 
-            {/* Mobile Menu Button (always on right) */}
+            {/* Mobile Menu Button */}
             <button
               className="lg:hidden text-gray-700 dark:text-gray-200"
               onClick={() => setIsOpen(!isOpen)}
@@ -97,9 +113,19 @@ export default function Header() {
             <FileText className="icon" />
             <Wallet className="icon" />
           </div>
-          <button className="flex items-center gap-2 text-gray-700 dark:text-gray-200 font-medium hover:text-red-600">
+
+          {/* Mobile PDF + Logout */}
+          <button
+            onClick={onDownloadPDF}
+            className="flex items-center justify-center gap-2 px-3 py-1 rounded-md font-medium text-gray-700 dark:text-gray-200 transition hover:text-blue-600"
+          >
+            <Download className="h-4 w-4" />
+            <span className="leading-none">PDF</span>
+          </button>
+
+          <button className="flex items-center justify-center gap-2 px-3 py-1 rounded-md font-medium text-gray-700 dark:text-gray-200 transition hover:text-red-600">
             <LogOut className="h-4 w-4" />
-            LOGOUT
+            <span className="leading-none">LOGOUT</span>
           </button>
         </div>
       )}
