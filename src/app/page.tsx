@@ -11,7 +11,6 @@ import BarLineChart from "./components/BarLineChart";
 import MultiLineChart from "./components/MultiLineChart";
 
 export default function Home() {
-  // PDF generation logic with html2canvas + jsPDF
   const handleDownloadPDF = useCallback(async () => {
     const element = document.getElementById("dashboard-content");
     if (!element) return;
@@ -19,12 +18,10 @@ export default function Home() {
     const html2canvas = (await import("html2canvas")).default;
     const jsPDF = (await import("jspdf")).default;
 
-    // Capture full scrollable area
+    // Capture full height of the dashboard
     const canvas = await html2canvas(element, {
       scale: 2,
       useCORS: true,
-      scrollX: 0,
-      scrollY: -window.scrollY,
       windowWidth: element.scrollWidth,
       windowHeight: element.scrollHeight,
     });
@@ -33,9 +30,25 @@ export default function Home() {
     const pdf = new jsPDF("p", "mm", "a4");
 
     const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    const pageHeight = pdf.internal.pageSize.getHeight();
 
-    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    const imgWidth = pdfWidth;
+    const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    // First page
+    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    // Additional pages if needed
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
 
     // Footer
     pdf.setFontSize(10);
