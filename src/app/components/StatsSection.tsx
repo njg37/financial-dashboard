@@ -22,27 +22,31 @@ export default function StatsSection() {
   const [stats, setStats] = useState<StatsData | null>(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    let isMounted = true;
-    setLoading(true);
-    fetch(`/api/stats?days=${selectedRange}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (isMounted) {
-          setStats(data);
-          setLoading(false);
-        }
-      })
-      .catch(() => {
-        if (isMounted) {
-          setStats(null);
-          setLoading(false);
-        }
-      });
-    return () => {
-      isMounted = false;
-    };
-  }, [selectedRange]);
+useEffect(() => {
+  let isMounted = true;
+  setLoading(true);
+
+  // If you keep a dummy JSON file in /public/data/stats.json
+  fetch(`/data/stats.json`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (isMounted) {
+        setStats(data);
+        setLoading(false);
+      }
+    })
+    .catch(() => {
+      if (isMounted) {
+        setStats(null);
+        setLoading(false);
+      }
+    });
+
+  return () => {
+    isMounted = false;
+  };
+}, [selectedRange]);
+
 
   return (
     <div className="bg-white dark:bg-gray-900 rounded-md shadow-sm border border-gray-200 dark:border-gray-700 px-4">

@@ -10,6 +10,10 @@
     "export": "next export"
   },
   "dependencies": {
+    "@capacitor/android": "^7.4.3",
+    "@capacitor/cli": "^7.4.3",
+    "@capacitor/core": "^7.4.3",
+    "@capacitor/filesystem": "^7.1.4",
     "framer-motion": "^12.23.12",
     "html2canvas": "^1.4.1",
     "html2pdf.js": "^0.10.3",

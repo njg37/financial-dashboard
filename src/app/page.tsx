@@ -3,6 +3,8 @@
 import { useCallback } from "react";
 import jsPDF from "jspdf";
 import autoTable, { RowInput } from "jspdf-autotable";
+import { Capacitor } from "@capacitor/core";
+import { Filesystem, Directory } from "@capacitor/filesystem";
 
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
@@ -23,7 +25,7 @@ declare module "jspdf" {
 }
 
 export default function Home() {
-  const handleDownloadPDF = useCallback(() => {
+  const handleDownloadPDF = useCallback(async () => {
     const pdf = new jsPDF("p", "mm", "a4");
     const pageWidth = pdf.internal.pageSize.getWidth();
 
@@ -33,7 +35,6 @@ export default function Home() {
       align: "center",
     });
 
-    // helper to clean numbers
     const sanitize = (val: string): string => val.replace(/[^\d₹,]/g, "");
 
     // ---------- AUM & SIP Table ----------
@@ -74,25 +75,21 @@ export default function Home() {
     const chartX = 40;
     const chartY = 140;
 
-    // Axes
     pdf.line(chartX, 40, chartX, chartY); // y-axis
     pdf.line(chartX, chartY, chartX + 120, chartY); // x-axis
 
-    // Y-axis labels (0–250)
     for (let i = 0; i <= 250; i += 50) {
       const y = chartY - i * 0.4;
       pdf.text(`${i}`, chartX - 10, y + 3);
       pdf.line(chartX - 3, y, chartX, y);
     }
 
-    // X-axis labels
     const quarters: string[] = ["Online", "New", "Active", "InActive"];
     quarters.forEach((q, i) => {
       const x = chartX + (i + 1) * 25;
       pdf.text(q, x, chartY + 10);
     });
 
-    // Bubble data
     const bubbles: { x: number; y: number; r: number; value: number }[] = [
       { x: 60, y: 100, r: 10, value: 120 },
       { x: 90, y: 80, r: 15, value: 200 },
@@ -119,36 +116,30 @@ export default function Home() {
     const sipValues: number[] = [20, 40, 60, 30, 80, 50];
     const months: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
 
-    // Axes
     pdf.line(sipX, 40, sipX, sipY);
     pdf.line(sipX, sipY, sipX + 120, sipY);
 
-    // Y-axis labels (0–100)
     for (let i = 0; i <= 100; i += 20) {
       const y = sipY - i;
       pdf.text(`${i}k`, sipX - 15, y + 3);
       pdf.line(sipX - 3, y, sipX, y);
     }
 
-    // Bars + line overlay
     let prevX = 0;
     let prevY = 0;
     sipValues.forEach((val, i) => {
       const x = sipX + (i + 1) * 18;
       const y = sipY - val;
 
-      // Bar
       pdf.setFillColor(54, 162, 235);
       pdf.rect(x - 5, y, 10, val, "F");
 
-      // Line overlay
       if (i > 0) {
         pdf.setDrawColor(255, 99, 132);
         pdf.line(prevX, prevY, x, y);
       }
       pdf.circle(x, y, 2, "F");
 
-      // Month label
       pdf.setFontSize(10);
       pdf.text(months[i], x - 5, sipY + 10);
 
@@ -168,24 +159,20 @@ export default function Home() {
     const profit: number[] = [30, 40, 35, 50, 45, 60];
     const expenses: number[] = [20, 25, 30, 28, 35, 40];
 
-    // Axes
     pdf.line(misX, 40, misX, misY);
     pdf.line(misX, misY, misX + 120, misY);
 
-    // Y-axis labels (0–100)
     for (let i = 0; i <= 100; i += 20) {
       const y = misY - i;
       pdf.text(`${i}k`, misX - 15, y + 3);
       pdf.line(misX - 3, y, misX, y);
     }
 
-    // X-axis labels
     misMonths.forEach((m, i) => {
       const x = misX + (i + 1) * 18;
       pdf.text(m, x - 5, misY + 10);
     });
 
-    // Plot lines
     const plotLine = (data: number[], color: [number, number, number]) => {
       let prevX = 0;
       let prevY = 0;
@@ -206,15 +193,33 @@ export default function Home() {
     plotLine(profit, [255, 99, 132]);
     plotLine(expenses, [255, 206, 86]);
 
-    // ---------- Footer ----------
     pdf.setFontSize(10);
-    pdf.text(
-      `Generated on ${new Date().toLocaleDateString()}`,
-      20,
-      pdf.internal.pageSize.getHeight() - 10
-    );
+    pdf.text(`Generated on ${new Date().toLocaleDateString()}`, 20, pdf.internal.pageSize.getHeight() - 10);
 
-    pdf.save("financial-dashboard.pdf");
+    // ---------- Platform-specific save ----------
+    if (Capacitor.isNativePlatform()) {
+      const pdfBlob = pdf.output("blob");
+
+      const blobToBase64 = (blob: Blob): Promise<string> =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve((reader.result as string).split(",")[1]);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+
+      const base64Data = await blobToBase64(pdfBlob);
+
+      await Filesystem.writeFile({
+        path: "financial-dashboard.pdf",
+        data: base64Data,
+        directory: Directory.Documents,
+      });
+
+      alert("PDF saved to your device!");
+    } else {
+      pdf.save("financial-dashboard.pdf");
+    }
   }, []);
 
   return (
@@ -222,7 +227,6 @@ export default function Home() {
       <Header onDownloadPDF={handleDownloadPDF} />
       <Navbar />
 
-      {/* Dashboard UI for user (not PDF) */}
       <div id="dashboard-content">
         <section className="py-4 px-2 sm:px-4 bg-gray-100 dark:bg-gray-800">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
