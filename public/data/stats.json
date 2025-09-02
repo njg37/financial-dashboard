@@ -1,0 +1,12 @@
+{
+  "purchases": 70,
+  "redemptions": 65,
+  "rejTransactions": 62,
+  "sipRejections": 64,
+  "newSip": 73,
+  "purchasesAmount": "70000.00 INR",
+  "redemptionsAmount": "52000.00 INR",
+  "rejTransactionsAmount": "31000.00 INR",
+  "sipRejectionsAmount": "19200.00 INR",
+  "newSipAmount": "51100.00 INR"
+}

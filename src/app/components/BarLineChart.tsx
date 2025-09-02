@@ -25,7 +25,7 @@ export default function SipBusinessChart() {
   const [data, setData] = useState<SipBusinessData[]>([]);
 
   useEffect(() => {
-    fetchData<{ sipBusiness: SipBusinessData[] }>("/api/charts").then((res) => {
+    fetchData<{ sipBusiness: SipBusinessData[] }>("charts").then((res) => {
       if (res) setData(res.sipBusiness);
     });
   }, []);

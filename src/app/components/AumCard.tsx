@@ -10,11 +10,12 @@ interface AUMData {
 export default function AumCard() {
   const [aum, setAum] = useState<AUMData | null>(null);
 
-  useEffect(() => {
-    fetchData<AUMData>("/api/aum").then((data) => {
-      if (data) setAum(data);
-    });
-  }, []);
+useEffect(() => {
+  fetchData<AUMData>("aum").then((data) => {
+    if (data) setAum(data);
+  });
+}, []);
+
 
   return (
     <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md p-4 shadow-sm min-h-[150px] flex flex-col justify-between">

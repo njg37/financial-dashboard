@@ -23,7 +23,7 @@ export default function MultiLineChart() {
   const [data, setData] = useState<MISData[]>([]);
 
   useEffect(() => {
-    fetchData<{ monthlyMIS: MISData[] }>("/api/charts").then((res) => {
+    fetchData<{ monthlyMIS: MISData[] }>("charts").then((res) => {
       if (res) setData(res.monthlyMIS);
     });
   }, []);

@@ -11,7 +11,7 @@ export default function SipCard() {
   const [sip, setSip] = useState<SIPData | null>(null);
 
   useEffect(() => {
-    fetchData<SIPData>("/api/sip").then((data) => {
+    fetchData<SIPData>("sip").then((data) => {
       if (data) setSip(data);
     });
   }, []);

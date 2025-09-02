@@ -26,7 +26,7 @@ export default function BubbleChart() {
 
   // Fetch data on mount
   useEffect(() => {
-    fetchData<{ clientsBubble: ClientData[] }>("/api/charts").then((d) => {
+    fetchData<{ clientsBubble: ClientData[] }>("charts").then((d) => {
       if (!d) return;
       const base = d.clientsBubble.slice(0, 4);
 
